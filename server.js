@@ -42,7 +42,6 @@ app.route('/articles')
         })
     });
 
-
 app.route("/articles/:articletitle")
 .get((req,res)=>{
     const articletitle=req.params.articletitle;
@@ -65,6 +64,27 @@ app.route("/articles/:articletitle")
         }
         else{
             res.send("Dome thoing went wrong "+err)
+        }
+    })
+})
+.patch((req,res)=>{
+    const articletitle=req.params.articletitle;
+    Article.updateOne({title:articletitle},{$set:req.body},(err)=>{
+        if(!err){
+            res.send("Successfully updated values")}
+            else{
+                res.send("Errror")
+            }
+    })
+})
+.delete((req,res)=>{
+    const articleid=req.params.articletitle;
+    Article.deleteOne({title:articleid},(err)=>{
+        if(!err){
+            res.send("No error")
+        }
+        else{
+            res.send("Some thing Error Occured")
         }
     })
 })
